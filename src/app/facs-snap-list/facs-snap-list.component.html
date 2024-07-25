@@ -1,0 +1,5 @@
+<button class="button" (click)="onBack()">BACK</button>
+
+@for(faceSnapElement of faceSnaps; track faceSnapElement.title){
+    <app-face-snap [faceSnap]="faceSnapElement"></app-face-snap>
+}

@@ -1,0 +1,16 @@
+<div class="w-[50%] box-border my-[20px] mx-auto py-[10px] px-[30px] shadow-[4px_4px_20px] shadow-[lightgray] rounded-md" [ngClass]="{snapped: !snapped} ">
+    <a routerLink="/facesnaps">BACK</a>
+    <h2 class="mb-0">{{ faceSnap.title | uppercase }}</h2>
+    @if(faceSnap.location){
+        <p>Localisation : {{ faceSnap.location }}</p>
+    }@else {
+        <p>Localisation non specifiee</p>
+    }
+    <img class="w-full" [src]="faceSnap.imageUrl" [alt]="faceSnap.title">
+    <p>{{ faceSnap.description }}</p>
+    <p>FaceSnap cree le {{ faceSnap.createdAt | date: 'd MMMM y,  h:m:ss' | titlecase }}</p>
+    <p>
+        <button class="button" (click)="onAddSnap()">{{btn}}</button>
+        <span class="font-[600]" [ngStyle]="{ 'color': 'rgb(0,' + faceSnap.snaps + ', 0)' }">👌 {{ faceSnap.snaps }}</span>
+    </p>
+</div>

@@ -9,21 +9,21 @@ export class FaceSnapsService{
  private facesnaps: FaceSnap[] = [
     new FaceSnap(
       "Archibald",
-      "https://images.pexels.com/photos/2171277/pexels-photo-2171277.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "assets/images/pexels-vladalex94-1402787.jpg",
       "Mon meilleur ami depuis toujours !",
       new Date(),
       100
     ),
     new FaceSnap(
       "Maxence",
-      "https://images.pexels.com/photos/1632788/pexels-photo-1632788.jpeg",
+      "assets/images/pexels-christian-heitz-285904-842711 (1).jpg",
       "Mon pote depuis toujours !",
       new Date(),
       255
     ).withLocation('A Newyork'),
     new FaceSnap(
       "Mbondo",
-      "https://images.pexels.com/photos/691668/pexels-photo-691668.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "../../assets/images/pexels-francesco-ungaro-1525041.jpg",
       "Ma syster!",
       new Date(),
       700
@@ -35,11 +35,12 @@ export class FaceSnapsService{
   }
 
   getFaceSnapById(faceSnapId: string): FaceSnap{
-    const foundSnapFace: FaceSnap | undefined= this.facesnaps.find(facesnap => facesnap.id = faceSnapId)
+    const foundSnapFace: FaceSnap | undefined= this.facesnaps.find(facesnap => facesnap.id === faceSnapId)
 
     if(!foundSnapFace){
       throw new Error("This snapFace does not exist !");
     }
+    console.log(foundSnapFace)
     return foundSnapFace
   }
 

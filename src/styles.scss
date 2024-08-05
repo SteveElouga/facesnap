@@ -3,6 +3,29 @@ body {
     margin: 0;
 }
 
+.link{
+    color:black;
+    text-decoration: none;
+    position: relative;
+
+    &::before{
+        content: '';
+        position: absolute;
+        width: 0%;
+        height: 100%;
+        border-bottom: 2px solid #000;  
+    }
+
+    &:hover::before{
+        width: 100%;
+        transition: width ease-in-out 0.2s;
+    }
+}
+
+
+img{
+    border-radius: 5px;
+}
 
 .button {
     background-color: transparent;
@@ -21,4 +44,3 @@ body {
         box-shadow: lightgray 0 0 5px;
     }
 }
-

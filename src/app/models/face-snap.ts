@@ -3,16 +3,15 @@ import { withHashLocation } from "@angular/router";
 export class FaceSnap {
 
     location?:string;
-    id: string;
 
     constructor(
+        public id: number,
         public title: string,
         public imageUrl: string,
         public description: string,
         public createdAt: Date,
         public snaps: number
     ) { 
-        this.id = crypto.randomUUID().substring(0, 8);
     }
 
     addSnapp(){
@@ -31,11 +30,11 @@ export class FaceSnap {
         }
     }
 
-    setLocation(location: string): void{
+    setLocation(location: string | undefined): void{
         this.location = location
     }
 
-    withLocation(location: string): FaceSnap{
+    withLocation(location: string | undefined): FaceSnap{
         this.setLocation(location);
         return this;
     }

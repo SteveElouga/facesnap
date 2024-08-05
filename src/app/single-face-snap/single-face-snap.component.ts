@@ -1,16 +1,18 @@
-import { Component, OnInit } from "@angular/core";
-import { FaceSnap } from "../models/face-snap";
 import {
+  AsyncPipe,
   DatePipe,
   LowerCasePipe,
   NgClass,
+  NgIf,
   NgStyle,
   TitleCasePipe,
   UpperCasePipe,
 } from "@angular/common";
-import { Title } from "@angular/platform-browser";
-import { FaceSnapsService } from "../services/face-snaps.service";
+import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, RouterLink } from "@angular/router";
+import { Observable, tap } from "rxjs";
+import { FaceSnap } from "../models/face-snap";
+import { FaceSnapsService } from "../services/face-snaps.service";
 
 @Component({
   selector: "app-single-face-snap",
@@ -23,12 +25,14 @@ import { ActivatedRoute, RouterLink } from "@angular/router";
     TitleCasePipe,
     DatePipe,
     RouterLink,
+    NgIf,
+    AsyncPipe,
   ],
   templateUrl: "./single-face-snap.component.html",
   styleUrl: "./single-face-snap.component.scss",
 })
 export class SingleFaceSnapComponent implements OnInit {
-  faceSnap!: FaceSnap;
+  faceSnap$!: Observable<FaceSnap>;
 
   btn!: string;
   snapped: Boolean = true;
@@ -44,20 +48,27 @@ export class SingleFaceSnapComponent implements OnInit {
     this.getFaceSnap();
   }
 
-  onAddSnap(): void {
+  onAddSnap(faceSnapId: number): void {
     if (this.snapped) {
-      this.faceSnapService.foundSnapFaceById(this.faceSnap.id, "snap");
-      this.btn = "Oops Snapped";
-      this.snapped = false;
+      this.faceSnap$  = this.faceSnapService
+        .snapById(faceSnapId, "snap")
+        .pipe(
+          tap(() => {
+            (this.btn = "Oops Snapped"), (this.snapped = false);
+          })
+        )
     } else {
-      this.faceSnapService.foundSnapFaceById(this.faceSnap.id, "unsnap");
-      this.btn = "Oh Snapps";
-      this.snapped = true;
+      this.faceSnap$ = this.faceSnapService.snapById(faceSnapId, "unsnap").pipe(
+        tap(() => {
+          this.btn = "Oh Snapps",
+          this.snapped = true
+        })
+      );
     }
   }
 
   private getFaceSnap() {
     const facesnapId = this.route.snapshot.params["id"];
-    this.faceSnap = this.faceSnapService.getFaceSnapById(facesnapId);
+    this.faceSnap$ = this.faceSnapService.getFaceSnapById(facesnapId);
   }
 }

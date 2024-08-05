@@ -1,0 +1,49 @@
+<div class="form">
+  <form
+    [formGroup]="snapForm"
+    class="bg-blue-300 w-[80%] mx-auto rounded-md mt-[20px] p-[20px] flex justify-center items-center flex-col"
+  >
+    <h2 class="text-center mb-[20px]">{{ title }}</h2>
+    <div class="input-label">
+      <label for="title">Title of FaceSnap :</label>
+      <input type="text" id="title" formControlName="title" />
+    </div>
+    <div class="input-label">
+      <label for="image">Image of FaceSnap :</label>
+      <input type="text" id="image" formControlName="imageUrl" />
+    </div>
+    <div class="input-label flex justify-center items-center">
+      <label for="description">Description of FaceSnap :</label>
+      <textarea
+        name="description"
+        id="description"
+        formControlName="description"
+      ></textarea>
+    </div>
+    <div class="input-label">
+      <label for="location">Location of FaceSnap :</label>
+      <input type="text" id="location" formControlName="location" />
+    </div>
+
+    <button type="submit" class="button bg-green-300 rounded-md" (click)="onSubmit()" [disabled]="snapForm.invalid">ADD</button>
+  </form>
+</div>
+
+<ng-container *ngIf="form$ | async as form">
+  <div
+    class="w-[50%] box-border my-[20px] mx-auto py-[10px] px-[30px] shadow-[4px_4px_20px] shadow-[lightgray] rounded-md"
+  >
+    <h2 class="mb-0">{{ form.title | uppercase }}</h2>
+    @if(form.location){
+    <p>Localisation : {{ form.location }}</p>
+    }@else {
+    <p>Localisation non specifiee</p>
+    }
+    <img class="w-full h-[200px] object-cover" [src]="form.imageUrl" [alt]="form.title" />
+    <p>{{ form.description }}</p>
+    <p>
+      FaceSnap cree le
+      {{ form.createdAt | date : "d MMMM y,  h:m:ss" | titlecase }}
+    </p>
+  </div>
+</ng-container>

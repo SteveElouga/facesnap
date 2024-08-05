@@ -1,0 +1,23 @@
+label{
+    font-weight: 200;
+    font-style: 16px;
+}
+.input-label{
+    margin-bottom: 20px ;
+
+    input{
+        height: 30px;
+    }
+
+    input, textarea{
+        margin-left: 10px;
+        border-radius: 5px;
+        padding: 4px;
+        width: 250px;
+
+
+        &:focus{
+            outline: none;
+        }
+    }
+}

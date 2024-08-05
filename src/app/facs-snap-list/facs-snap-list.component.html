@@ -1,5 +1,7 @@
 <button class="button" (click)="onBack()">BACK</button>
 
-@for(faceSnapElement of faceSnaps; track faceSnapElement.title){
+<!-- @for(faceSnapElement of faceSnaps; track faceSnapElement.title){
     <app-face-snap [faceSnap]="faceSnapElement"></app-face-snap>
-}
+} -->
+
+<app-face-snap *ngFor="let faceSnap of faceSnaps$ | async" [faceSnap]="faceSnap"></app-face-snap>
